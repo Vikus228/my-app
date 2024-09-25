@@ -1,0 +1,2125 @@
+swagger: "2.0"
+info:
+  description: carshop restapi server
+  version: "1.0"
+  title: carshop
+  contact: {}
+host: 49.234.46.73:8080
+basePath: /
+paths:
+  /api/v1/order/add:
+    post:
+      tags:
+      - order
+      summary: 创建订单
+      description: |-
+        创建订单数据
+        ParamIn user_id: 订单所属用户的ID
+        ParamIn sku_id: 订单商品的的SKU ID
+        ParamIn store_id: 订单所属商户的ID
+        ParamIn pay_amount: 订单金额
+        ParamIn pay_method: 订单支付方式 - 默认微信支付
+        ParamOut order_trade_no: 返回支付订单流水
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: OrderSubmitInfo
+        description: 创建订单结构体
+        required: true
+        schema:
+          $ref: '#/definitions/forms.OrderSubmitInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/order/count:
+    get:
+      tags:
+      - order
+      summary: 获取订单计数
+      description: |-
+        获取订单统计计数
+        ParamOut order_num: 所有订单计数
+        ParamOut order_unpaid: 未支付订单计数
+        ParamOut order_paid: 支付订单计数
+        ParamOut order_finished: 完成订单计数
+        ParamOut order_cancel: 取消订单计数
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: store_id
+        in: query
+        description: 商户id
+        required: false
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/order/delete:
+    get:
+      tags:
+      - order
+      summary: 删除订单
+      description: 删除订单id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: order_id
+        in: query
+        description: 删除订单id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/order/detail:
+    get:
+      tags:
+      - order
+      summary: 获取订单详细信息
+      description: |-
+        获取订单详细信息返回值
+        ParamOut order_id: 订单id
+        ParamOut user_id: 订单所属用户id
+        ParamOut store_id: 订单所属于商户id
+        ParamOut sku_id: 订单所属于商品sku id
+        ParamOut store_name: 订单所属于商户名称
+        ParamOut store_addr: 订单所属于商户地址
+        ParamOut store_phone: 订单所属于商户手机号
+        ParamOut store_image: 订单所属于商户图片
+        ParamOut prodsku_name: 订单所属于商品sku
+        ParamOut prodsku_spec: 订单所属于商户规格
+        ParamOut number: 订单商品数量
+        ParamOut staus: 订单所属于商户id
+        ParamOut payment: 订单支付方式
+        ParamOut amount: 订单金额
+        ParamOut code: 订单验证码
+        ParamOut trade_no: 订单流水号
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: order_id
+        in: query
+        description: 请求订单id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/order/list:
+    get:
+      tags:
+      - order
+      summary: 获取订单列表
+      description: |-
+        获取订单列表返回值
+        ParamOut order_id: 订单id
+        ParamOut user_id: 订单所属用户id
+        ParamOut store_id: 订单所属于商户id
+        ParamOut sku_id: 订单所属于商品sku id
+        ParamOut number: 订单商品数量
+        ParamOut staus: 订单所属于商户id
+        ParamOut payment: 订单支付方式
+        ParamOut amount: 订单金额
+        ParamOut trade_no: 订单流水号
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: user_id
+        in: query
+        description: 请求订单所属用户id
+        required: false
+        type: integer
+      - name: store_id
+        in: query
+        description: 请求订单所属商户id
+        required: false
+        type: integer
+      - name: status
+        in: query
+        description: "请求订单状态值: unpay, payed, finished, cancel"
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/order/update:
+    post:
+      tags:
+      - order
+      summary: 更新订单状态
+      description: |-
+        更新订单状态
+        ParamIn order_id: 更新订单id
+        ParamIn order_status: 更新订单状态值: unpay, payed, finished, cancel
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: OrderUpdateInfo
+        description: 更新订单状态结构体
+        required: true
+        schema:
+          $ref: '#/definitions/forms.OrderUpdateInfo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/add:
+    post:
+      tags:
+      - service
+      summary: 创建服务
+      description: |-
+        创建服务
+        ParamIn service_name: 服务名称
+        ParamIn service_imgurl: 服务图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ServiceJson
+        description: 服务种类数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ServiceJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/add:
+    post:
+      tags:
+      - category
+      summary: 创建产品种类
+      description: |-
+        创建产品种类
+        ParamIn category_name: 产品种类名称
+        ParamIn service_id: 服务ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CategoryJson
+        description: 产品种类数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.CategoryJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/delete:
+    get:
+      tags:
+      - category
+      summary: 删除产品种类信息
+      description: 删除产品种类信息
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: category_id
+        in: query
+        description: 删除产品种类id的信息
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/list:
+    get:
+      tags:
+      - category
+      summary: 获取种类列表
+      description: |-
+        获取种类列表
+        ParamOut category_id: 产品种类ID
+        ParamOut category_name: 产品种类名称
+        ParamOut service_id: 服务ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: service_id
+        in: query
+        description: 服务ID
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/add:
+    post:
+      tags:
+      - product
+      summary: 创建产品
+      description: |-
+        创建产品
+        ParamIn prod_name: 产品的名称
+        ParamIn prod_status: 产品的状态：上架，下架，all
+        ParamIn prod_priority: 产品的优先级
+        ParamIn prod_price: 产品价格
+        ParamIn prod_main_image: 产品图片
+        ParamIn prod_comment_enable: 产品是否显示评论
+        ParamIn prod_desc: 产品描述
+        ParamIn category_id: 产品的种类id
+        ParamIn brand_id: 产品的商标id
+        ParamIn prod_stores: 产品的商家列表
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdJson
+        description: 产品数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/comment/add:
+    post:
+      tags:
+      - product comment
+      summary: 添加产品评论
+      description: |-
+        添加产品评论
+        ParamIn comment_level: 产品评论分数等级
+        ParamIn comment_name: 产品评论名称
+        ParamIn comment_context: 产品评论内容
+        ParamIn comment_image: 产品评论图片
+        ParamIn prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdCommentJson
+        description: 产品评论数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdCommentJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/comment/delete:
+    get:
+      tags:
+      - product comment
+      summary: 删除产品某条具体评论
+      description: 删除产品某条具体评论
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: comment_id
+        in: query
+        description: 删除的产品image ID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/comment/detail:
+    get:
+      tags:
+      - product comment
+      summary: 获取产品评论信息
+      description: |-
+        获取产品评论信息
+        ParamOut comment_id: 产品评论的ID
+        ParamOut comment_level: 产品评论分数等级
+        ParamOut comment_name: 产品评论名称
+        ParamOut comment_context: 产品评论内容
+        ParamOut comment_image: 产品评论图片
+        ParamOut prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: comment_id
+        in: query
+        description: 产品评论的id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/comment/list:
+    get:
+      tags:
+      - product comment
+      summary: 获取产品评论列表
+      description: |-
+        获取产品评论列表
+        ParamOut comment_id: 产品评论的ID
+        ParamOut comment_level: 产品评论分数等级
+        ParamOut comment_name: 产品评论名称
+        ParamOut comment_context: 产品评论内容
+        ParamOut comment_image: 产品评论图片
+        ParamOut prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: prod_id
+        in: query
+        description: 产品的id
+        required: true
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/comment/update:
+    post:
+      tags:
+      - product comment
+      summary: 更新产品评论
+      description: |-
+        更新产品评论
+        ParamIn comment_id: 产品评论的ID
+        ParamIn comment_level: 产品评论分数等级
+        ParamIn comment_name: 产品评论名称
+        ParamIn comment_context: 产品评论内容
+        ParamIn comment_image: 产品评论图片
+        ParamIn prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdCommentJson
+        description: 产品评论数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdCommentJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/delete:
+    get:
+      tags:
+      - product
+      summary: 删除产品
+      description: 删除产品
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: prod_id
+        in: query
+        description: 删除的产品ID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/detail:
+    get:
+      tags:
+      - product
+      summary: 获取产品具体信息
+      description: |-
+        获取产品具体信息
+        ParamOut prod_id: 产品的ID
+        ParamOut prod_name: 产品的名称
+        ParamOut prod_status: 产品的状态：上架，下架，all
+        ParamOut prod_priority: 产品的优先级
+        ParamOut prod_price: 产品价格
+        ParamOut prod_main_image: 产品图片
+        ParamOut prod_comment_enable: 产品是否显示评论
+        ParamOut prod_desc: 产品描述
+        ParamOut category_id: 产品的种类id
+        ParamOut brand_id: 产品的商标id
+        ParamOut prod_stores: 产品的商家列表
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: prod_id
+        in: query
+        description: 产品的id
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/image/add:
+    post:
+      tags:
+      - product image
+      summary: 添加产品image信息
+      description: |-
+        添加产品image信息
+        ParamIn image_url: 产品image的名称
+        ParamIn image_type: 产品image的类型
+        ParamIn prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdImageJson
+        description: 产品image数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdImageJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/image/delete:
+    get:
+      tags:
+      - product image
+      summary: 删除产品图片
+      description: 删除产品图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: image_id
+        in: query
+        description: 删除的产品image ID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/image/detail:
+    get:
+      tags:
+      - product image
+      summary: 获取产品image具体信息
+      description: |-
+        获取产品image具体信息
+        ParamOut image_id: 产品image的ID
+        ParamOut image_url: 产品image的名称
+        ParamOut image_type: 产品image的类型
+        ParamOut prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: image_id
+        in: query
+        description: image的id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/image/list:
+    get:
+      tags:
+      - product image
+      summary: 获取产品image列表
+      description: |-
+        获取产品image列表
+        ParamOut image_id: 产品image的ID
+        ParamOut image_url: 产品image的名称
+        ParamOut image_type: 产品image的类型
+        ParamOut prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: prod_id
+        in: query
+        description: 产品的id
+        required: true
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/image/update:
+    post:
+      tags:
+      - product image
+      summary: 更新产品image信息
+      description: |-
+        更新产品image信息
+        ParamIn image_id: 产品image的ID
+        ParamIn image_url: 产品image的名称
+        ParamIn image_type: 产品image的类型
+        ParamIn prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdImageJson
+        description: 产品image数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdImageJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/list:
+    get:
+      tags:
+      - product
+      summary: 获取产品列表
+      description: |-
+        获取产品列表
+        ParamOut prod_id: 产品的ID
+        ParamOut prod_name: 产品的名称
+        ParamOut prod_status: 产品的状态：上架，下架，all
+        ParamOut prod_priority: 产品的优先级
+        ParamOut prod_price: 产品价格
+        ParamOut prod_main_image: 产品图片
+        ParamOut prod_comment_enable: 产品是否显示评论
+        ParamOut prod_desc: 产品描述
+        ParamOut category_id: 产品的种类id
+        ParamOut brand_id: 产品的商标id
+        ParamOut prod_stores: 产品的商家列表
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: category_id
+        in: query
+        description: 商家的id
+        required: false
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      - name: status
+        in: query
+        description: 产品的状态
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/sku/add:
+    post:
+      tags:
+      - product sku
+      summary: 添加产品SKU信息
+      description: |-
+        添加产品SKU信息
+        ParamIn sku_name: 产品SKU的名称
+        ParamIn sku_nums: 产品SKU的数量
+        ParamIn sku_price: 产品SKU的价格
+        ParamIn sku_discount: 产品SKU的折扣价
+        ParamIn sku_cost: 产品SKU的成本价
+        ParamIn sku_spec: 产品sku特征
+        ParamIn prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdSkuJson
+        description: 产品SKU数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdSkuJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/sku/delete:
+    get:
+      tags:
+      - product sku
+      summary: 删除产品SKU
+      description: 删除产品SKU
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: sku_id
+        in: query
+        description: 删除的产品SKU ID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/sku/detail:
+    get:
+      tags:
+      - product sku
+      summary: 获取产品某个SKU详细信息
+      description: |-
+        获取产品某个SKU详细信息
+        ParamOut sku_id: 产品SKU的ID
+        ParamOut sku_name: 产品SKU的名称
+        ParamOut sku_nums: 产品SKU的数量
+        ParamOut sku_price: 产品SKU的价格
+        ParamOut sku_discount: 产品SKU的折扣价
+        ParamOut sku_cost: 产品SKU的成本价
+        ParamOut sku_spec: 产品sku特征
+        ParamOut prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: sku_id
+        in: query
+        description: SKU的id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/sku/list:
+    get:
+      tags:
+      - product sku
+      summary: 获取产品SKU列表
+      description: |-
+        获取产品SKU列表
+        ParamOut sku_id: 产品SKU的ID
+        ParamOut sku_name: 产品SKU的名称
+        ParamOut sku_nums: 产品SKU的数量
+        ParamOut sku_price: 产品SKU的价格
+        ParamOut sku_discount: 产品SKU的折扣价
+        ParamOut sku_cost: 产品SKU的成本价
+        ParamOut sku_spec: 产品sku特征
+        ParamOut prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: prod_id
+        in: query
+        description: 产品的id
+        required: true
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/sku/update:
+    post:
+      tags:
+      - product sku
+      summary: 更新产品SKU信息
+      description: |-
+        更新产品SKU信息
+        ParamIn sku_id: 产品SKU的ID
+        ParamIn sku_name: 产品SKU的名称
+        ParamIn sku_nums: 产品SKU的数量
+        ParamIn sku_price: 产品SKU的价格
+        ParamIn sku_discount: 产品SKU的折扣价
+        ParamIn sku_cost: 产品SKU的成本价
+        ParamIn sku_spec: 产品sku特征
+        ParamIn prod_id: 产品ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdSkuJson
+        description: 产品SKU数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdSkuJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/store/add:
+    post:
+      tags:
+      - product
+      summary: 添加商品的商户绑定信息
+      description: |-
+        添加商品的商户绑定信息
+        ParamIn prod_id: 产品id
+        ParamIn store_id: 商店id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdStoreJson
+        description: 产品商店绑定数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdStoreJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/store/delete:
+    get:
+      tags:
+      - product
+      summary: 删除产品与商店的连接
+      description: 删除产品与商店的连接
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: prod_id
+        in: query
+        description: 产品ID
+        required: true
+        type: integer
+      - name: store_id
+        in: query
+        description: 商店ID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/category/product/update:
+    post:
+      tags:
+      - product
+      summary: 更新产品
+      description: |-
+        更新产品
+        ParamIn prod_id: 产品的ID
+        ParamIn prod_name: 产品的名称
+        ParamIn prod_status: 产品的状态：上架，下架，all
+        ParamIn prod_priority: 产品的优先级
+        ParamIn prod_price: 产品价格
+        ParamIn prod_main_image: 产品图片
+        ParamIn prod_comment_enable: 产品是否显示评论
+        ParamIn prod_desc: 产品描述
+        ParamIn category_id: 产品的种类id
+        ParamIn brand_id: 产品的商标id
+        ParamIn prod_stores: 产品的商家列表
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ProdJson
+        description: 产品数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ProdJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/delete:
+    get:
+      tags:
+      - service
+      summary: 删除服务
+      description: 删除服务
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: service_id
+        in: query
+        description: 删除服务id的信息
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/service/list:
+    get:
+      tags:
+      - service
+      summary: 获取服务列表
+      description: |-
+        获取服务列表
+        ParamOut service_id: 服务ID
+        ParamOut service_name: 服务名称
+        ParamOut service_imgurl: 服务图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/sevice/category/update:
+    post:
+      tags:
+      - category
+      summary: 更新产品种类
+      description: |-
+        更新产品种类
+        ParamIn category_id: 产品种类ID
+        ParamIn category_name: 产品种类名称
+        ParamIn service_id: 服务ID
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CategoryJson
+        description: 产品种类数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.CategoryJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/sevice/update:
+    post:
+      tags:
+      - service
+      summary: 更新服务
+      description: |-
+        更新服务
+        ParamIn service_id: 服务ID
+        ParamIn service_name: 服务名称
+        ParamIn service_imgurl: 服务图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ServiceJson
+        description: 服务种类数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.ServiceJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/add:
+    post:
+      tags:
+      - store
+      summary: 创建商店
+      description: |-
+        创建商店信息
+        ParamIn store_id: 商店的ID
+        ParamIn user_id: 商店所属的用户的ID
+        ParamIn store_name: 商店名称
+        ParamIn store_addr: 商店地址
+        ParamIn store_ownner: 商店所有者，修理厂，年检站等
+        ParamIn store_phone: 商店电话
+        ParamIn store_bankcardnum: 商店银行卡号码
+        ParamIn store_bankcardname: 商店银行卡用户名
+        ParamIn store_image: 商店图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: StoreInfoJson
+        description: 商店数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.StoreInfoJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/delete:
+    get:
+      tags:
+      - store
+      summary: 删除商店信息
+      description: 删除商店信息
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: store_id
+        in: query
+        description: 删除商店id信息
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/detail:
+    get:
+      tags:
+      - store
+      summary: 获取商店详细信息
+      description: |-
+        获取商店详细信息
+        ParamOut store_id: 商店的ID
+        ParamOut user_id: 商店所属的用户的ID
+        ParamOut store_name: 商店名称
+        ParamOut store_addr: 商店地址
+        ParamOut store_ownner: 商店所有者：修理厂，年检站等
+        ParamOut store_phone: 商店电话
+        ParamOut store_bankcardnum: 商店银行卡号码
+        ParamOut store_bankcardname: 商店银行卡用户名
+        ParamOut store_image: 商店图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: store_id
+        in: query
+        description: 请求商店的ID
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/list:
+    get:
+      tags:
+      - store
+      summary: 获取商店列表
+      description: |-
+        获取商店列表
+        ParamOut store_id: 商店的ID
+        ParamOut user_id: 商店所属的用户的ID
+        ParamOut store_name: 商店名称
+        ParamOut store_addr: 商店地址
+        ParamOut store_ownner: 商店所有者，修理厂，年检站等
+        ParamOut store_phone: 商店电话
+        ParamOut store_bankcardnum: 商店银行卡号码
+        ParamOut store_bankcardname: 商店银行卡用户名
+        ParamOut store_image: 商店图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: store_type
+        in: query
+        description: 请求商店所属类型
+        required: false
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/prod/list:
+    get:
+      tags:
+      - store
+      summary: 获取商店的产品列表
+      description: |-
+        获取商店的产品列表
+        ParamOut prod_id: 产品的ID
+        ParamOut prod_name: 产品的名称
+        ParamOut prod_status: 产品的状态：上架，下架，all
+        ParamOut prod_priority: 产品的优先级
+        ParamOut prod_price: 产品价格
+        ParamOut prod_main_image: 产品图片
+        ParamOut prod_comment_enable: 产品是否显示评论
+        ParamOut prod_desc: 产品描述
+        ParamOut category_id: 产品的种类id
+        ParamOut brand_id: 产品的商标id
+        ParamOut prod_stores: 产品的商家列表
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: store_id
+        in: query
+        description: 商家的id
+        required: false
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/update:
+    post:
+      tags:
+      - store
+      summary: 更新商店信息
+      description: |-
+        更新商店信息
+        ParamIn store_id: 商店的ID
+        ParamIn user_id: 商店所属的用户的ID
+        ParamIn store_name: 商店名称
+        ParamIn store_addr: 商店地址
+        ParamIn store_ownner: 商店所有者，修理厂，年检站等
+        ParamIn store_phone: 商店电话
+        ParamIn store_bankcardnum: 商店银行卡号码
+        ParamIn store_bankcardname: 商店银行卡用户名
+        ParamIn store_image: 商店图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: StoreInfoJson
+        description: 商店数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.StoreInfoJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/store/user/add:
+    post:
+      tags:
+      - store
+      summary: 绑定用户的商店
+      description: |-
+        绑定商店信息
+        ParamIn store_id: 商店的ID
+        ParamIn username: 用户名
+        ParamIn password: 用户密码
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: StoreUserJson
+        description: 用户绑定商店数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.StoreUserJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/auth/code:
+    get:
+      tags:
+      - user
+      summary: 获取登陆注册码
+      description: 获取登陆注册码
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: type
+        in: query
+        description: "验证码类型: math, digit 默认: string"
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/auth/login:
+    post:
+      tags:
+      - user
+      summary: 验证登陆
+      description: |-
+        验证登陆
+        ParamIn uuid: 验证码uuid
+        ParamIn username: 登陆名
+        ParamIn password: 登陆密码md5
+        ParamIn code: 验证码
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserLogin
+        description: 登陆信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.UserLogin'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/carinfo/add:
+    post:
+      tags:
+      - user
+      summary: 添加用户车辆信息
+      description: |-
+        添加用户车辆信息
+        ParamIn uid: 车辆所属用户id
+        ParamIn car_name: 车辆名称
+        ParamIn car_number: 车牌号
+        ParamIn car_license: 车辆行驶证url(需上传照片)
+        ParamIn driver_license: 驾驶证url(需上传照片)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserCar
+        description: 车辆信息数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.UserCar'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/carinfo/delete:
+    get:
+      tags:
+      - user
+      summary: 删除车辆信息
+      description: 根据用户id和车辆id删除车辆数据
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uid
+        in: query
+        description: 用户id号
+        required: true
+        type: integer
+      - name: cid
+        in: query
+        description: 车辆id号
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/carinfo/update:
+    post:
+      tags:
+      - user
+      summary: 更新用户车辆信息
+      description: |-
+        更新用户车辆信息
+        ParamIn uid: 车辆所属用户id
+        ParamIn cid: 车辆信息id
+        ParamIn car_name: 车辆名称
+        ParamIn car_number: 车牌号
+        ParamIn car_license: 车辆行驶证url(需上传照片)
+        ParamIn driver_license: 驾驶证url(需上传照片)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserCar
+        description: 车辆信息数据
+        required: true
+        schema:
+          $ref: '#/definitions/forms.UserCar'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/delete:
+    get:
+      tags:
+      - user
+      summary: 删除用户
+      description: 根据用户id删除用户
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uid
+        in: query
+        description: 用户id号
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/detail:
+    get:
+      tags:
+      - user
+      summary: 获取用户详细信息
+      description: 根据用户id获取用户详细信息
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uid
+        in: query
+        description: 用户id号
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/list:
+    get:
+      tags:
+      - user
+      summary: 获取用户信息列表
+      description: 根据类型获取用户信息列表
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: user_type
+        in: query
+        description: "用户角色 管理员: 666, 维护: 66, 商户: 6, 用户: 0"
+        required: false
+        type: string
+      - name: page_num
+        in: query
+        description: 页码
+        required: false
+        type: string
+      - name: page_size
+        in: query
+        description: 每页个数
+        required: false
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/password:
+    post:
+      tags:
+      - user
+      summary: 更新用户密码
+      description: |-
+        更新用户密码
+        ParamIn uid: 更新用户id
+        ParamIn username: 用户登陆名
+        ParamIn oldpwd: 旧密码
+        ParamIn newpwd: 新密码
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserPasswd
+        description: 更新密码信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.UserPasswd'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/register:
+    post:
+      tags:
+      - user
+      summary: 注册用户
+      description: |-
+        注册平台用户
+        ParamIn username: 注册用户名
+        ParamIn password: 用户名密码 md5
+        ParamIn role: 用户身份标示 管理员: 666, 维护: 66, 商户: 6, 用户: 0
+        ParamIn nickname: 用户昵称
+        ParamIn phone: 手机号码
+        ParamIn email: 邮箱地址
+        ParamIn address: 用户所在地
+        ParamIn avatar: 用户头像
+        ParamIn age: 年龄
+        ParamIn gender: 性别 男性: 0 女性: 1
+        ParamIn city: 所在城市
+        ParamIn province: 所在省份
+        ParamIn country: 所在国家
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserRegister
+        description: 注册用户信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.UserRegister'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/store/list:
+    get:
+      tags:
+      - user
+      summary: 获取用户的商店列表
+      description: |-
+        获取用户的商店列表
+        ParamOut store_id: 商店的ID
+        ParamOut user_id: 商店所属的用户的ID
+        ParamOut store_name: 商店名称
+        ParamOut store_addr: 商店地址
+        ParamOut store_ownner: 商店所有者，修理厂，年检站等
+        ParamOut store_phone: 商店电话
+        ParamOut store_bankcardnum: 商店银行卡号码
+        ParamOut store_bankcardname: 商店银行卡用户名
+        ParamOut store_image: 商店图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uid
+        in: query
+        description: 用户id号
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/user/upate:
+    post:
+      tags:
+      - user
+      summary: 更新用户信息
+      description: |-
+        更新用户信息
+        ParamIn uid: 更新用户id
+        ParamIn nickname: 用户昵称
+        ParamIn phone: 手机号码
+        ParamIn email: 邮箱地址
+        ParamIn address: 用户所在地
+        ParamIn avatar: 用户头像
+        ParamIn age: 年龄
+        ParamIn gender: 性别 男性: 0 女性: 1
+        ParamIn city: 所在城市
+        ParamIn province: 所在省份
+        ParamIn country: 所在国家
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserDetail
+        description: 注册用户信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.UserDetail'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/announcement/add:
+    post:
+      tags:
+      - webconfig announcement
+      summary: 添加公告
+      description: |-
+        添加公告
+        ParamIn title: 公告标题
+        ParamIn content: 公告内容
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: AnnouncementJson
+        description: 公告信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.AnnouncementJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/announcement/delete:
+    get:
+      tags:
+      - webconfig announcement
+      summary: 删除公告
+      description: 删除公告
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/announcement/detail:
+    get:
+      tags:
+      - webconfig announcement
+      summary: 获取公告信息
+      description: |-
+        获取公告信息
+        ParamOut announcement_id: 公告ID
+        ParamOut title: 公告标题
+        ParamOut content: 公告内容
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/announcement/update:
+    post:
+      tags:
+      - webconfig announcement
+      summary: 更新公告
+      description: |-
+        更新公告
+        ParamIn title: 公告标题
+        ParamIn content: 公告内容
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: AnnouncementJson
+        description: 公告信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.AnnouncementJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/banner/add:
+    post:
+      tags:
+      - webconfig banner
+      summary: 添加banner
+      description: |-
+        添加banner
+        ParamIn banner_id: 轮播图片id
+        ParamIn banner_image: 轮播图片路径
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: BannerJson
+        description: 轮播图片信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.BannerJson'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/banner/delete:
+    get:
+      tags:
+      - webconfig banner
+      summary: 删除banner
+      description: 删除banner
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: banner_id
+        in: query
+        description: 轮播图片 ID
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/webconfig/banner/list:
+    get:
+      tags:
+      - webconfig banner
+      summary: 获取banner列表
+      description: |-
+        获取banner列表
+        ParamOut banner_id: 轮播图片id
+        ParamOut banner_image: 轮播图片
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/weixin/auth:
+    post:
+      tags:
+      - weixin
+      summary: 微信登陆授权
+      description: |-
+        微信登陆授权返回自定义登陆态
+        ParamIn code: 登录凭证
+        ParamIn user_info: 登陆信息
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: AuthLoginWx
+        description: 微信授权登陆信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.AuthLoginWx'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+  /api/v1/weixin/prepay:
+    post:
+      tags:
+      - weixin
+      summary: 微信预支付
+      description: |-
+        微信预支付
+        ParamIn order_trade_no: 订单流水号
+        ParamIn user_id: 支付用户id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: PrePayWx
+        description: 微信预支付信息
+        required: true
+        schema:
+          $ref: '#/definitions/forms.PrePayWx'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+definitions:
+  forms.AnnouncementJson:
+    type: object
+    properties:
+      announcement_id:
+        type: integer
+      content:
+        type: string
+      title:
+        type: string
+  forms.AuthLoginWx:
+    type: object
+    properties:
+      code:
+        type: string
+      user_info:
+        $ref: '#/definitions/models.ResUserInfo'
+  forms.BannerJson:
+    type: object
+    properties:
+      banner_id:
+        type: integer
+      banner_image:
+        type: string
+  forms.CategoryJson:
+    type: object
+    properties:
+      category_id:
+        type: integer
+      category_name:
+        type: string
+      service_id:
+        type: integer
+  forms.OrderSubmitInfo:
+    type: object
+    properties:
+      pay_amount:
+        type: integer
+      pay_method:
+        type: integer
+      sku_id:
+        type: integer
+      store_id:
+        type: integer
+      user_id:
+        type: integer
+  forms.OrderUpdateInfo:
+    type: object
+    properties:
+      order_id:
+        type: integer
+      order_status:
+        type: string
+  forms.PrePayWx:
+    type: object
+    properties:
+      order_trade_no:
+        type: string
+      user_id:
+        type: integer
+  forms.ProdCommentJson:
+    type: object
+    properties:
+      comment_context:
+        type: string
+      comment_id:
+        type: integer
+      comment_image:
+        type: string
+      comment_level:
+        type: integer
+      comment_name:
+        type: string
+      prod_id:
+        type: integer
+  forms.ProdImageJson:
+    type: object
+    properties:
+      image_id:
+        type: integer
+      image_type:
+        type: integer
+      image_url:
+        type: string
+      prod_id:
+        type: integer
+  forms.ProdJson:
+    type: object
+    properties:
+      brand_id:
+        type: integer
+      category_id:
+        type: integer
+      prod_comment_enable:
+        type: boolean
+      prod_desc:
+        type: string
+      prod_id:
+        type: integer
+      prod_main_image:
+        type: string
+      prod_name:
+        type: string
+      prod_price:
+        type: integer
+      prod_priority:
+        type: integer
+      prod_status:
+        type: integer
+      prod_stores:
+        type: array
+        items:
+          $ref: '#/definitions/forms.ProdStoreJson'
+  forms.ProdSkuJson:
+    type: object
+    properties:
+      prod_id:
+        type: integer
+      sku_cost:
+        type: integer
+      sku_discount:
+        type: integer
+      sku_id:
+        type: integer
+      sku_name:
+        type: string
+      sku_nums:
+        type: integer
+      sku_price:
+        type: integer
+      sku_spec:
+        type: string
+        description: 对应ProdSpecLabel选项 0_1_2 代表3个选项中的对应索引
+  forms.ProdStoreJson:
+    type: object
+    properties:
+      prod_id:
+        type: integer
+      store_id:
+        type: integer
+      store_image:
+        type: string
+      store_name:
+        type: string
+  forms.ServiceJson:
+    type: object
+    properties:
+      service_id:
+        type: integer
+      service_imgurl:
+        type: string
+      service_name:
+        type: string
+  forms.StoreInfoJson:
+    type: object
+    properties:
+      store_addr:
+        type: string
+      store_bankcardname:
+        type: string
+      store_bankcardnum:
+        type: string
+      store_id:
+        type: integer
+      store_image:
+        type: string
+      store_name:
+        type: string
+      store_ownner:
+        type: string
+      store_phone:
+        type: string
+      store_type:
+        type: integer
+      user_id:
+        type: integer
+  forms.StoreUserJson:
+    type: object
+    properties:
+      password:
+        type: string
+      store_id:
+        type: integer
+      username:
+        type: string
+  forms.UserCar:
+    type: object
+    properties:
+      car_license:
+        type: string
+      car_name:
+        type: string
+      car_number:
+        type: string
+      cid:
+        type: integer
+      driver_license:
+        type: string
+      uid:
+        type: integer
+  forms.UserDetail:
+    type: object
+    properties:
+      address:
+        type: string
+      age:
+        type: integer
+      avatar:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      email:
+        type: string
+      gender:
+        type: integer
+      nickname:
+        type: string
+      phone:
+        type: string
+      province:
+        type: string
+      role:
+        type: integer
+      uid:
+        type: integer
+      userCar:
+        type: array
+        items:
+          $ref: '#/definitions/forms.UserCar'
+  forms.UserLogin:
+    type: object
+    properties:
+      code:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      uuid:
+        type: string
+  forms.UserPasswd:
+    type: object
+    properties:
+      newpwd:
+        type: string
+      oldpwd:
+        type: string
+      uid:
+        type: integer
+      username:
+        type: string
+  forms.UserRegister:
+    type: object
+    properties:
+      address:
+        type: string
+      age:
+        type: integer
+      avatar:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      email:
+        type: string
+      gender:
+        type: integer
+      nickname:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      province:
+        type: string
+      role:
+        type: integer
+      username:
+        type: string
+  models.ResUserInfo:
+    type: object
+    properties:
+      encryptedData:
+        type: string
+      iv:
+        type: string
+      rawData:
+        type: string
+      signature:
+        type: string
+      userInfo:
+        $ref: '#/definitions/models.WXUserInfo'
+  models.WXUserInfo:
+    type: object
+    properties:
+      avatarUrl:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      gender:
+        type: integer
+      language:
+        type: string
+      nickName:
+        type: string
+      openId:
+        type: string
+      province:
+        type: string
+      unionId:
+        type: string
+      watermark:
+        $ref: '#/definitions/models.Watermark'
+  models.Watermark:
+    type: object
+    properties:
+      appid:
+        type: string
+      timestamp:
+        type: integer
+  utils.Response:
+    type: object
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+        properties: {}
+      msg:
+        type: string

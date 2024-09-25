@@ -1,0 +1,164 @@
+.header {
+    background-color: #7ecbff;
+    color: white;
+    padding: 1rem;
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.navList {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navItem {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navItem:hover {
+    color: #3c8fc7;
+}
+
+.additionalControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.searchBox {
+    position: relative;
+    flex-grow: 1;
+    margin-left: 1%;
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+}
+
+.searchInput {
+    flex-grow: 1;
+    padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+    border: 2px solid #007acc;
+    border-radius: 8px;
+    background-color: #edf2f7;
+    color: #2d3748;
+}
+
+.searchIcon {
+    position: absolute;
+    right: 10px;
+    color: #007acc;
+    font-size: 1.2rem;
+}
+
+.userActions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.actionItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: #7ecbff;
+    transition: color 0.3s;
+}
+
+.actionItem:hover {
+    color: #3c8fc7;
+}
+
+.actionItem span {
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+.cartPage {
+    padding: 20px;
+}
+
+.cartTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.cartContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.cartItems {
+    flex-grow: 1;
+}
+
+.cartItem {
+    display: flex;
+    gap: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cartItemImage {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.cartItemDetails {
+    flex-grow: 1;
+}
+
+.cartItemDetails h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #2d3748;
+}
+
+.cartItemDetails p {
+    margin: 0 0 0.5rem 0;
+    color: #4a5568;
+}
+
+.cartSummary {
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cartTitleSmall {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.cartItemsSmall {
+    color: #4a5568;
+}

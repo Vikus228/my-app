@@ -1,0 +1,251 @@
+.header {
+    background-color: #7ecbff;
+    color: white;
+    padding: 1rem;
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.navList {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navItem {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navItem:hover {
+    color: #3c8fc7;
+}
+
+.additionalControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.catalogButton {
+    background-color: #1e00ff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-left: 1%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.catalogButton:hover {
+    background-color: #0b0060;
+}
+
+
+.searchBox {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+}
+
+.searchInput {
+    flex-grow: 1;
+    padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+    border: 2px solid #007acc;
+    border-radius: 8px;
+    background-color: #edf2f7;
+    color: #2d3748;
+}
+
+.searchIcon {
+    position: absolute;
+    right: 10px;
+    color: #007acc;
+    font-size: 1.2rem;
+}
+
+.userActions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.actionItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    transition: color 0.3s;
+}
+
+.actionItem:hover {
+    color: #ffa500;
+}
+
+.actionItem span {
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+.mainContent {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.leftColumn {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rightColumn {
+    width: 300px;
+}
+
+.cardContainer {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carouselContainer {
+    margin-bottom: 1rem;
+}
+
+.carouselContent {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.carouselItem {
+    flex: 0 0 auto;
+    width: 250px;
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.carouselItem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.receivingCard {
+    margin-top: 20px;
+}
+
+.cardTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #1e00ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button.active {
+    background-color: #1e00ff;
+    color: white;
+}
+
+.addressContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardText {
+    margin: 0;
+}
+
+.boldText {
+    font-weight: bold;
+}
+
+.addressText {
+    color: #4a5568;
+}
+
+.cardLink {
+    color: #007acc;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.cardLink:hover {
+    color: #0b0060;
+}
+
+.payCard {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.catalogButton2 {
+    background-color: #1e00ff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.catalogButton2:hover {
+    background-color: #0b0060;
+}
+
+.smallText {
+    font-size: 0.8rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.itemRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
