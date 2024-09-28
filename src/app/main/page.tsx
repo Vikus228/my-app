@@ -78,7 +78,6 @@ const Main: React.FC = () => {
     return (
         <div className={styles.main}>
             <aside className={styles.filters}>
-                <h6>Автомобили</h6>
                 <div className={styles.filter}>
                     <h3>Цена</h3>
                     <input

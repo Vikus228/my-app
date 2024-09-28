@@ -34,7 +34,7 @@ const RegistrationForm: React.FC = () => {
 
     return (
         <div className={styles.registrationForm}>
-            <h2>Регистрация</h2>
+            <h2 className={styles.title}>Регистрация</h2>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <label htmlFor="username">Имя пользователя</label>
@@ -44,6 +44,7 @@ const RegistrationForm: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        className={styles.inputField}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -54,6 +55,7 @@ const RegistrationForm: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className={styles.inputField}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -64,6 +66,7 @@ const RegistrationForm: React.FC = () => {
                         value={repeatPassword}
                         onChange={(e) => setRepeatPassword(e.target.value)}
                         required
+                        className={styles.inputField}
                     />
                 </div>
                 <button type="submit" className={styles.submitButton}>Зарегистрироваться</button>

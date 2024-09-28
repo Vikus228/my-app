@@ -1,36 +1,41 @@
 .header {
-    background-color: #7ecbff;
-    color: white;
-    padding: 1rem;
-    margin-bottom: 2%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem 3rem;
+    background: linear-gradient(to right, #43a4e4, #2668ba);
+    color: white;
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
-    margin: 0;
 }
 
 .navList {
+    list-style: none;
     display: flex;
     gap: 1rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
-.navItem {
+.navItem a {
     color: white;
     text-decoration: none;
-    transition: color 0.3s;
+    font-weight: bold;
+    font-size: 1.3rem;
 }
 
-.navItem:hover {
-    color: #3c8fc7;
+.navItem a:hover {
+    color: rgb(213, 213, 213);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.additionalControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .additionalControls {
@@ -92,10 +97,6 @@
     cursor: pointer;
     color: white;
     transition: color 0.3s;
-}
-
-.actionItem:hover {
-    color: #ffa500;
 }
 
 .actionItem span {
@@ -174,14 +175,14 @@
 
 .button {
     padding: 0.5rem 1rem;
-    border: 1px solid #1e00ff;
+    border: 1px solid #1054ff;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .button.active {
-    background-color: #1e00ff;
+    background-color: #1054ff;
     color: white;
 }
 
@@ -204,7 +205,7 @@
 }
 
 .cardLink {
-    color: #007acc;
+    color: #1054ff;
     cursor: pointer;
     transition: color 0.3s;
 }
@@ -222,7 +223,7 @@
 }
 
 .catalogButton2 {
-    background-color: #1e00ff;
+    background-color:#1054ff;;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -248,4 +249,10 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+.mainColor {
+    background: linear-gradient(to right, #43a4e4, #2668ba);
+    height: 100vh;
+    padding-top: 2rem;
 }

@@ -12,7 +12,7 @@ const LoginForm: React.FC = () => {
         event.preventDefault();
         const response = getGetApiV1UserAuthCodeMock();
         console.log('Ответ от сервера:', response);
-        if (response.code === 200) {
+        if (response.code) {
             console.log('Пользователь успешно авторизован');
         } else {
             console.error('Ошибка авторизации:', response.msg);
@@ -21,7 +21,7 @@ const LoginForm: React.FC = () => {
 
     return (
         <div className={styles.loginForm}>
-            <h2>Авторизация</h2>
+            <h2 className={styles.title}>Авторизация</h2>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formGroup}>
                     <label htmlFor="username">Имя пользователя</label>
@@ -31,6 +31,7 @@ const LoginForm: React.FC = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
+                        className={styles.inputField}
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -41,6 +42,7 @@ const LoginForm: React.FC = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        className={styles.inputField}
                     />
                 </div>
                 <button type="submit" className={styles.submitButton}>Войти</button>
